@@ -36,5 +36,7 @@ while True:
     setColor(100, 10, 0)
   elif userInput == "white":
     setColor(100, 100, 100)
+  elif userInput == "off":
+    setColor(0, 0, 0)
   else:
     print("Invalid color")

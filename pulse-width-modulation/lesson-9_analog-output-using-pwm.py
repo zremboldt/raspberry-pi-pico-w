@@ -6,7 +6,7 @@ analogOutPin.freq(1000) # Set the frequency of the PWM signal to 1000Hz. This wi
 analogOutPin.duty_u16(0) # Set the duty cycle of the PWM signal. This is a 16 bit binary number. 0 is off and 65535 is fully on.
 
 while True:
-  binaryMax = 65550
+  binaryMax = 65535
   humanReadableMax = 100 # We want to convert the binary value to a number between 0 and 100
   
   userInput = int(input("Enter a number between 0 and 100: "))

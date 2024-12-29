@@ -10,7 +10,7 @@ potPin = 28 # Pin for the potentiometer
 myPot = ADC(potPin) # Create an Analog to Digital Conversion object
 
 while True:
-  binaryMax = 65550
+  binaryMax = 65535
   binaryMin = 0
 
   potMax = 65535

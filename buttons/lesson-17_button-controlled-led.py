@@ -1,7 +1,7 @@
 from machine import Pin, PWM
 from time import sleep
 
-button = Pin(8, Pin.IN, Pin.PULL_UP) # When setting up a button we can use Pin.PULL_UP to enable the board's internal pull-up resistor rather than setting one up manually.
+button = Pin(10, Pin.IN, Pin.PULL_UP) # When setting up a button we can use Pin.PULL_UP to enable the board's internal pull-up resistor rather than setting one up manually.
 
 ledRed = PWM(Pin(13))
 ledGreen = PWM(Pin(12))

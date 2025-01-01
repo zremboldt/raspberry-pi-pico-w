@@ -1,6 +1,5 @@
 from machine import Pin, PWM
 from time import sleep
-import random
 
 ledRed = PWM(Pin(13))
 ledGreen = PWM(Pin(12))
@@ -28,7 +27,6 @@ color = 'red'
 try:
   while True:
     if i == 0:
-      # Choose next color in the list. Not a random color.
       color = colors[colors.index(color) + 1] if colors.index(color) < len(colors) - 1 else colors[0]
       print(color)
 

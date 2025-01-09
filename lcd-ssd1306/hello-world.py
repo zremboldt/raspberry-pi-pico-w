@@ -10,3 +10,5 @@ display = SSD1306_I2C(128, 64, i2cBus) # 128x64 display and we want to talk to i
 display.text("Hello, World!", 0, 0)
 display.hline(0, 12, 128, 1)
 display.show()
+
+# display.poweroff()

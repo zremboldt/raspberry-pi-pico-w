@@ -27,7 +27,6 @@ while True:
     for j in range(0, 6):
       drawParticle(circleRadius - j, i + tick)
 
-  sleep(0.01)
   display.show()
 
   if tick <= 18:

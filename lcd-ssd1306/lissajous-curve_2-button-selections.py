@@ -75,14 +75,13 @@ display = SSD1306_I2C(128, 64, i2cBus) # 128x64 display and we want to talk to i
 tick = 0
 drawPointsInSucession = False
 currentCurve = 0
+xCenter = 64
+yCenter = 32
+xRadius = 52
+yRadius = 24
 
 while True:
   display.fill(0)
-
-  xCenter = 64
-  yCenter = 32
-  xRadius = 52
-  yRadius = 24
 
   handleButtonPress("blue", lambda: updateCurve("decrement"))
   handleButtonPress("green", lambda: updateCurve("increment"))

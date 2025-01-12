@@ -23,6 +23,8 @@ import math
 # transformerX = 11 transformerY = 123
 # transformerX = 8 transformerY = 82
 
+# transformerX = 17 transformerY = 11
+
 buttonGreen = Pin(14, Pin.IN, Pin.PULL_UP) # When setting up a button we can use Pin.PULL_UP to enable the board's internal pull-up resistor rather than setting one up manually.
 buttonBlue = Pin(15, Pin.IN, Pin.PULL_UP) # When setting up a button we can use Pin.PULL_UP to enable the board's internal pull-up resistor rather than setting one up manually.
 latestButtonBlueState = 1
@@ -53,7 +55,7 @@ def handleButtonPress(color, callback=None):
 def increment_transformer(transformer):
   global transformerX
   global transformerY
-  global drawEachPoint
+  global drawPointsInSucession
 
   if transformer == "X":
     if transformerX < 1:
@@ -65,7 +67,7 @@ def increment_transformer(transformer):
       transformerY += 1
 
   print("\r", f"Blue: {transformerX}, Green: {transformerY}", end=' ')
-  drawEachPoint = True
+  drawPointsInSucession = True
 
 # Initialize the I2C bus
 i2cBus = I2C(id=0, sda=Pin(4), scl=Pin(5), freq=400000) # id is 0 because we are using the I2C0 bus. If we were using I2C1, we would use id=1
@@ -74,7 +76,7 @@ i2cBus = I2C(id=0, sda=Pin(4), scl=Pin(5), freq=400000) # id is 0 because we are
 display = SSD1306_I2C(128, 64, i2cBus) # 128x64 display and we want to talk to it over the I2C bus
 
 tick = 0
-drawEachPoint = False
+drawPointsInSucession = False
 transformerX = 0.3
 transformerY = 1
 
@@ -83,20 +85,22 @@ while True:
 
   xCenter = 64
   yCenter = 32
-  circleRadius = 20
+  xRadius = 52
+  yRadius = 24
 
   handleButtonPress("blue", lambda: increment_transformer("X"))
   handleButtonPress("green", lambda: increment_transformer("Y"))
     
   for i in range(0, 360, 2):
-    x = int(xCenter + circleRadius * math.cos(math.radians(i * transformerX) + (tick * 0.05)) * 2.5)
-    y = int(yCenter + circleRadius * math.sin(math.radians(i * transformerY) + (tick * 0.05)))
+    x = int(xCenter + xRadius * math.cos(math.radians(i * transformerX)))
+    y = int(yCenter + yRadius * math.sin(math.radians(i * transformerY) + (tick * 0.05)))
     display.pixel(x, y, 1)
 
-    if i != 358 and drawEachPoint:
-      display.show() # Show the drawing of each pixel in succession.
+    if i != 358 and drawPointsInSucession:
+      if i % 10 == 0: # Draw every 10th pixel.
+        display.show() # Show the drawing of each pixel in succession.
     else:
-      drawEachPoint = False
+      drawPointsInSucession = False
       
   display.show()
   tick += 1

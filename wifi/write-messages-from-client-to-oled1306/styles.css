@@ -88,8 +88,16 @@ button {
 }
 
 .red {
-  background-color: hsl(0, 79%, 64%);
+  background-color: hsl(0 79% 64%);
+  
+  &:active {
+    background-color: hsl(0 79% 64% / 0.8);
+  }
 }
 .green {
-  background-color: hsl(162, 57%, 46%);
+  background-color: hsl(162 57% 46%);
+  
+  &:active {
+    background-color: hsl(162 57% 46% / 0.8);
+  }
 }

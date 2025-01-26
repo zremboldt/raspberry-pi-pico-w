@@ -53,7 +53,7 @@ bufferSize = 1024 # defines how many bytes of data we're willing to receive at o
 
 # Create TCP server instead of UDP
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)  # Add this line
+server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 server.bind((serverIp, serverPort))
 server.listen(5)
 

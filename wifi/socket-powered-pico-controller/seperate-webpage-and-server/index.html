@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Pico Control Center</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .control-panel {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin: 20px 0;
+      }
+      .control-button {
+        padding: 20px;
+        font-size: 18px;
+        cursor: pointer;
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        border-radius: 5px;
+      }
+      .control-button:hover {
+        background-color: #45a049;
+      }
+      #forward {
+        grid-column: 2;
+      }
+      #left {
+        grid-column: 1;
+      }
+      #stop {
+        grid-column: 2;
+      }
+      #right {
+        grid-column: 3;
+      }
+      #back {
+        grid-column: 2;
+      }
+      #status {
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #f1f1f1;
+        border-radius: 5px;
+      }
+      .connection-form {
+        margin-bottom: 20px;
+      }
+      input[type="text"] {
+        padding: 10px;
+        width: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Robot Control Center</h1>
+
+    <div class="connection-form">
+      <input
+        type="text"
+        id="pico-ip"
+        placeholder="Enter Pico IP address"
+        value="192.168.1.X"
+      />
+      <button onclick="saveIP()">Connect</button>
+    </div>
+
+    <div class="control-panel">
+      <button
+        id="forward"
+        class="control-button"
+        onclick="sendCommand('forward')"
+      >
+        Forward
+      </button>
+      <button id="left" class="control-button" onclick="sendCommand('left')">
+        Left
+      </button>
+      <button id="stop" class="control-button" onclick="sendCommand('stop')">
+        Stop
+      </button>
+      <button id="right" class="control-button" onclick="sendCommand('right')">
+        Right
+      </button>
+      <button id="back" class="control-button" onclick="sendCommand('back')">
+        Back
+      </button>
+    </div>
+
+    <div>
+      <button class="control-button" onclick="sendCommand('light-on')">
+        Light On
+      </button>
+      <button class="control-button" onclick="sendCommand('light-off')">
+        Light Off
+      </button>
+    </div>
+
+    <div id="status">Status: Not connected</div>
+
+    <script>
+      let picoIP = "";
+
+      function saveIP() {
+        picoIP = document.getElementById("pico-ip").value;
+        document.getElementById(
+          "status"
+        ).textContent = `Status: Connected to ${picoIP}`;
+      }
+
+      function sendCommand(command) {
+        if (!picoIP) {
+          alert("Please enter the Pico IP address first");
+          return;
+        }
+
+        // Send the command to the Pico
+        fetch(`http://${picoIP}/${command}`)
+          .then((response) => {
+            document.getElementById(
+              "status"
+            ).textContent = `Status: Command "${command}" sent successfully`;
+          })
+          .catch((error) => {
+            document.getElementById(
+              "status"
+            ).textContent = `Status: Error sending command - ${error}`;
+          });
+      }
+    </script>
+  </body>
+</html>
